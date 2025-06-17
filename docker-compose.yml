@@ -7,7 +7,9 @@ services:
     container_name: zpr-node-a
     command: ["/bin/node", "-c", "/config/node-conf.toml"]
     volumes:
-      - ./bin:/bin
+      - ./zpr-core/tools:/bin/zpr-core
+      - ./zpr-compiler/target/debug:/bin/zpr-compiler
+      - ./zpr-visaservice/core/build:/bin/zpr-visaservice
       - ./config/nodeA:/config
     privileged: true
     cap_add:
@@ -22,7 +24,9 @@ services:
     container_name: zpr-node-b
     command: ["/bin/node", "-c", "/config/node-conf.toml"]
     volumes:
-      - ./bin:/bin
+      - ./zpr-core/tools:/bin/zpr-core
+      - ./zpr-compiler/target/debug:/bin/zpr-compiler
+      - ./zpr-visaservice/core/build:/bin/zpr-visaservice
       - ./config/nodeB:/config
     privileged: true
     cap_add:
@@ -37,7 +41,9 @@ services:
     container_name: zpr-node-c
     command: ["/bin/node", "-c", "/config/node-conf.toml"]
     volumes:
-      - ./bin:/bin
+      - ./zpr-core/tools:/bin/zpr-core
+      - ./zpr-compiler/target/debug:/bin/zpr-compiler
+      - ./zpr-visaservice/core/build:/bin/zpr-visaservice
       - ./config/nodeC:/config
     privileged: true
     cap_add:
@@ -52,7 +58,9 @@ services:
     container_name: zpr-vs
     command: ["/bin/vservice", "-c", "/config/vs-config.yaml", "-p", "/config/policy.bin"]
     volumes:
-      - ./bin:/bin
+      - ./zpr-core/tools:/bin/zpr-core
+      - ./zpr-compiler/target/debug:/bin/zpr-compiler
+      - ./zpr-visaservice/core/build:/bin/zpr-visaservice
       - ./config/visa:/config
     networks:
       zprnet:
@@ -64,7 +72,9 @@ services:
     container_name: zpr-vs-adapter
     command: ["/bin/adapter", "-c", "/config/adapter-vs-conf.toml"]
     volumes:
-      - ./bin:/bin
+      - ./zpr-core/tools:/bin/zpr-core
+      - ./zpr-compiler/target/debug:/bin/zpr-compiler
+      - ./zpr-visaservice/core/build:/bin/zpr-visaservice
       - ./config/adapter-visa:/config
     privileged: true
     cap_add:
