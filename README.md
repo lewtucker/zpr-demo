@@ -1,0 +1,1 @@
+As a new user, I want to define all nodes, vservices, and related settings in a single yaml file (zpr-cert-info.yaml), from which keys, a Docker override file, and a Docker Compose file are automatically generated to easily spin up a toy ZPRnet.
