@@ -6,9 +6,8 @@ RUN apt-get update && apt-get install -y \
     wget \
     git \
     build-essential \
-    ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
-
+		openssh-client \
+    ca-certificates
 # ---- Install Rust ----
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
@@ -24,5 +23,22 @@ ENV PATH="/usr/local/go/bin:${PATH}"
 RUN rustc --version && go version
 
 # Set default workdir
-WORKDIR /workspace
+WORKDIR /app
+COPY . .
 
+WORKDIR /app/zpr-compiler
+# Run make in subdirectory
+#RUN echo `ls .`
+#COPY zpr-policy-go core/zpr-policy-go
+#COPY zpr-vsapi-go core/zpr-vsapi-go
+RUN make
+##
+### Adjust if needed: copy binary to final location
+### Example assumes `make` builds a binary named `vservice`
+#RUN cp core/build/vservice /bin/vservice
+##
+### Set up config or other assets
+#WORKDIR /app
+#COPY config /config
+
+#CMD ["/bin/zpr-visaservice/vservice", "-c", "/config/vs-config.yaml", "-p", "/config/policy.bin"]
