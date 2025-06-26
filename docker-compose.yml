@@ -3,21 +3,30 @@ services:
     image: alohagarage/zpr:latest
     platform: linux/amd64
     container_name: visa-service
-    ports:
-      - "8182:8182"
     command: ["/app/bin/vservice", "-c", "/authority/vs-config.yaml", "-p", "/authority/zpr-full-access.bin", "-l", "[fd5a:5052::2]:5002"]
     volumes:
       - ./zpr-core/authority:/authority
     networks:
       v6net:
         ipv6_address: fd5a:5052::2
+
+  admin-proxy:
+    image: alpine/socat
+    container_name: admin-proxy
+    command: >
+      tcp-listen:8182,fork,reuseaddr
+      tcp-connect:[fd5a:5052::2]:8182
+    ports:
+      - "8182:8182"
+    depends_on:
+      - visa-service
+    networks:
+      v6net:
+
 networks:
   v6net:
     driver: bridge
     enable_ipv6: true
     ipam:
-      driver: default
       config:
         - subnet: fd5a:5052::/64
-
-
