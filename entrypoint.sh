@@ -18,7 +18,5 @@ while ! ip -6 addr show eth0 | grep -q "fd5a:5052::2"; do
 done
 
 echo "✅ IPv6 address assigned, starting service..."
-exec /app/bin/vservice -c /authority/vs-config.yaml -p /authority/zpr-full-access.bin -l "[fd5a:5052::2]:5002"
-
-# Start adapter
-#/app/bin/ph adapter -c /authority/adapter-vs-conf.toml
+exec /app/bin/vservice -c /authority/vs-config.yaml -p /authority/zpr-full-access.bin -l "[fd5a:5052::2]:5002" &
+exec /app/bin/ph-no-uring adapter -c /authority/adapter-vs-conf.toml --debug all
