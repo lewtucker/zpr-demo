@@ -3,9 +3,16 @@ services:
     image: alohagarage/zpr:latest
     platform: linux/amd64
     container_name: visa-service
-    command: ["/app/bin/vservice", "-c", "/authority/vs-config.yaml", "-p", "/authority/zpr-full-access.bin", "-l", "[fd5a:5052::2]:5002"]
+    #command: ["/app/bin/vservice", "-c", "/authority/vs-config.yaml", "-p", "/authority/zpr-full-access.bin", "-l", "[fd5a:5052::2]:5002"]
+    command: ["/entrypoint.sh"]
     volumes:
       - ./zpr-core/authority:/authority
+      - ./entrypoint.sh:/entrypoint.sh
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    privileged: true
     networks:
       v6net:
         ipv6_address: fd5a:5052::2
