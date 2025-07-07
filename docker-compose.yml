@@ -13,7 +13,8 @@ services:
       - /dev/net/tun
     privileged: true
     networks:
-      - dualstack
+      substrate:
+        ipv4_address: 129.6.7.100
 
   visa-service:
     image: alohagarage/zpr:latest
@@ -28,29 +29,27 @@ services:
     devices:
       - /dev/net/tun
     privileged: true
-    networks:
-     dualstack:
-        ipv6_address: fd5a:5052::2
-        ipv4_address: 129.6.7.2
-
-  admin-proxy:
-    image: alpine/socat
-    container_name: admin-proxy
-    command: >
-      tcp-listen:8182,fork,reuseaddr
-      tcp-connect:[fd5a:5052::2]:8182
-    ports:
-      - "8182:8182"
     depends_on:
-      - visa-service
+      - node
     networks:
-      - dualstack
-  
+      substrate:
+        ipv4_address: 129.6.7.101
+
+# admin-proxy:
+#   image: alpine/socat
+#   container_name: admin-proxy
+#   command: >
+#     tcp-listen:8182,fork,reuseaddr
+#     tcp-connect:[fd5a:5052::1]:8182
+#   ports:
+#     - "8182:8182"
+#   depends_on:
+#     - visa-service
+#   networks:
+#     - dualstack
+
 networks:
-  dualstack:
-    driver: bridge
-    enable_ipv6: true
+  substrate:
     ipam:
       config:
         - subnet: 129.6.7.0/24
-        - subnet: fd5a:5052::/64

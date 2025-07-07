@@ -2,7 +2,7 @@
 order = ["hosts", "dns"]
 
 [resolver.hosts]
-"node0.zpr" = "fd5a:5052:90de::1"
+"node0.zpr" = "fd5a:5052:90de::33"
 "node0.overlay" = "129.6.7.1"
 
 [nodes."node"]
