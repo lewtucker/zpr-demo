@@ -11,4 +11,4 @@ ip addr add fd5a:5052:90de::33/32 dev tun8
 ip link set tun8 up
 
 
-exec /app/bin/ph-no-uring node -c /authority/node-conf.toml
+exec /app/bin/ph node -c /authority/node-conf.toml
