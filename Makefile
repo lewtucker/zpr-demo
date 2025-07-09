@@ -37,7 +37,9 @@ build-image:
 	@cp zpr-core/adapter/ph/target/debug/ph bin
 	@cp zpr-compiler/target/debug/zplc bin
 	@cp zpr-visaservice/core/build/vservice bin
-	@docker build -t alohagarage/zpr:latest .
+	@docker build -t alohagarage/zpr:nightly .
+
+docker-image: pull build build-image
 
 pki:
 	@python3 scripts/gen_pki.py
