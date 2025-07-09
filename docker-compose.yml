@@ -1,6 +1,6 @@
 services:
   node:
-    image: alohagarage/zpr:latest
+    image: alohagarage/zpr:nightly
     platform: linux/amd64
     container_name: node
     command: ["/entrypoint.sh"]
