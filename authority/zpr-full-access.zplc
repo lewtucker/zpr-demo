@@ -2,11 +2,11 @@
 order = ["hosts", "dns"]
 
 [resolver.hosts]
-"node0.zpr" = "fd5a:5052:90de::33"
-"node0.overlay" = "129.6.7.1"
+"node0.zpr" = "fd5a:5052:90de::1"
+"node0.overlay" = "129.6.7.100"
 
 [nodes."node"]
-key = "MCowBQYDK2VuAyEA/Ks688AlGRiO15jehxn6zicSv++CKUX4KeYjr4anS1A="
+key = "MCowBQYDK2VuAyEAj3dYp1ymkzcc7Nl6G+nqy/c47gr6ey4n40sZr84DDFc="
 provider = [ ["device.zpr.adapter.cn", "node.zpr.org"]]
 zpr_address = "node0.zpr"
 interfaces = ["in1"]
