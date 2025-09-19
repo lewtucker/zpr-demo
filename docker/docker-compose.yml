@@ -1,11 +1,11 @@
 services:
   node:
-    image: alohagarage/zpr:nightly
+    image: ${IMAGE_NAME}
     platform: linux/amd64
     container_name: node
     command: ["/entrypoint.sh"]
     volumes:
-      - ./authority:/authority
+      - ../release/conf:/conf
       - ./docker-node/entrypoint.sh:/entrypoint.sh
     cap_add:
       - NET_ADMIN
@@ -15,14 +15,16 @@ services:
     networks:
       substrate:
         ipv4_address: 129.6.7.100
+    ports:
+      - "65000:5000/udp"
 
   visa-service:
-    image: alohagarage/zpr:nightly
+    image: ${IMAGE_NAME}
     platform: linux/amd64
     container_name: visa-service
     command: ["/entrypoint.sh"]
     volumes:
-      - ./authority:/authority
+      - ../release/conf:/conf
       - ./docker-vs/entrypoint.sh:/entrypoint.sh
     cap_add:
       - NET_ADMIN
@@ -35,18 +37,25 @@ services:
       substrate:
         ipv4_address: 129.6.7.101
 
-# admin-proxy:
-#   image: alpine/socat
-#   container_name: admin-proxy
-#   command: >
-#     tcp-listen:8182,fork,reuseaddr
-#     tcp-connect:[fd5a:5052::1]:8182
-#   ports:
-#     - "8182:8182"
-#   depends_on:
-#     - visa-service
-#   networks:
-#     - dualstack
+  bas:
+    image: ${IMAGE_NAME}
+    platform: linux/amd64
+    container_name: bas
+    command: ["/entrypoint.sh"]
+    volumes:
+      - ../release/conf:/conf
+      - ./docker-bas/entrypoint.sh:/entrypoint.sh
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    privileged: true
+    depends_on:
+      - node
+      - visa-service
+    networks:
+      substrate:
+        ipv4_address: 129.6.7.102
 
 networks:
   substrate:

@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -6,9 +6,14 @@ RUN apt-get update && apt-get install -y \
     wget \
     git \
     build-essential \
-		openssh-client \
+    openssh-client \
     iproute2 \
     ca-certificates
 # Set default workdir
 WORKDIR /app
-COPY bin bin
+
+# These copy into {WORKDIR}/{dname}
+# Note that docker does not like relative source paths here.
+COPY src/build/bin bin
+COPY release/db db
+
