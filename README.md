@@ -14,7 +14,7 @@ The latest release will be here in `main` and in a branch named `demo-YYYYMMDD`.
 The demo consists of a container image, some binaries and some configuration
 files.
 
-- The container image can be downloaded from GNCR here: (TODO)
+- The container image can be downloaded from GHCR here: (TODO)
 - The release binaries are in the [releases area](https://github.com/org-zpr/zpr-demo/releases).
 - The configuration files are in the repo in [release/conf](https://github.com/org-zpr/zpr-demo/tree/main/release/conf).
 
