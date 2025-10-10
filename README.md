@@ -100,6 +100,10 @@ bas.zpr.org (created: 2025-08-12T16:16:58Z) @ fd5a:5052:1:1::1
 admin.zpr.org (created: 2025-08-12T16:17:30Z) @ fd5a:5052:1:1::2
 ```
 
+Another interesting `vs-admin` command is `gui` which brings up a
+terminal based UI showing some details of the visa service operation.
+Just replace `actors` with `gui` in the above line to try it out.
+
 Connected as the admin adapter you cannot access the web service.
 So, for example, this will fail:
 
