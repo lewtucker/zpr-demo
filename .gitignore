@@ -1,4 +1,6 @@
 *.swp
 *.pyc
 build/
-
+release/
+zpr-20251010/
+release-20251010-linux-x86_64.tar.gz
